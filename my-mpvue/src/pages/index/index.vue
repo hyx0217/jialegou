@@ -1,15 +1,6 @@
 <template>
   <div>
-      <van-search
-    class="sea"
-    :value="value "
-    placeholder="请输入搜索关键词"
-    show-action
-    @search="onSearch"
-    @cancel="onCancel"
-
-    />
-    <div style='width:100%;height:100rpx'></div>
+    <sea></sea>
     <banner></banner>
     <hot></hot>
   </div>
@@ -19,6 +10,7 @@
 import card from '@/components/Common/card'
 import banner from '@/components/Common/banner'
 import hot from '@/components/Home/hot'
+import sea from '@/components/Common/sea'
 export default {
   data () {
     return {
@@ -35,7 +27,8 @@ export default {
   components: {
     card,
     banner,
-    hot
+    hot,
+    sea
   },
 
   methods: {
@@ -60,12 +53,7 @@ export default {
 </script>
 
 <style scoped>
-   .sea{
-    position: fixed;
-    top:0;
-    z-index: 10;
-    width: 100%;
-    }
+
 .userinfo {
   display: flex;
   flex-direction: column;

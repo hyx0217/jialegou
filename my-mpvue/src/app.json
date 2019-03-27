@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/logs/main",
+    "pages/classify/main",
     "pages/counter/main",
     "pages/prodetails/main",
     "pages/mine/main"
@@ -27,7 +27,7 @@
       "selectedIconPath": "static/tabs/home-active.png"
     }, {
       "text": "分类",
-      "pagePath": "pages/logs/main",
+      "pagePath": "pages/classify/main",
       "iconPath": "static/tabs/orders.png",
       "selectedIconPath": "static/tabs/orders-active.png"
     },
@@ -49,7 +49,10 @@
   
   "usingComponents": {
     "van-button": "static/vant/dist/button/index",
-    "van-search": "static/vant/dist/search/index"
+    "van-search": "static/vant/dist/search/index",
+    "van-icon": "static/vant/dist/icon/index",
+    "van-card": "static/vant/dist/card/index",
+    "van-tree-select": "static/vant/dist/tree-select/index"
   }
 
 }
