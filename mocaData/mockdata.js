@@ -23,11 +23,11 @@ module.exports=function(){
                 text:Mock.Random.cparagraph(1, 3)
             }
         }),
-        tree:lodash.times(8,function(n){
+        tree:lodash.times(20,function(n){
             return{
                     id:n,
                     name:Mock.Random.cname(),
-                    childrens:lodash.times(8,function(n){
+                    childrens:lodash.times(15,function(n){
                         return{
                                
                                 personId:n,

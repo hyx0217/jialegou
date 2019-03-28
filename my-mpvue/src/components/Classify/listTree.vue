@@ -1,11 +1,11 @@
 <template>
     <div id='classify'>
         <div class='cfy-left'>
-            <ul>
-                <li v-for="(item,index) in kinds" :key="index" @click="onTab(index)" :class='{active:check===index}'>
-                    <span>{{item.name}}</span>
-                </li>
-            </ul>
+             <scroll-view scroll-y='true' :style="{height:listHeight+'rpx'}">
+                    <view v-for="(item,index) in kinds" :key="index" @click="onTab(index)" :class='{active:check===index}' class='list'>
+                        <span>{{item.name}}</span>
+                    </view>
+             </scroll-view>
         </div>
         <div class="cfy-right">
             <div class='hidebox' v-for="(item,i) in kindsKid" :key='i' :class='{active:check===i}'>
@@ -30,6 +30,8 @@ export default {
             kinds:'',
             kindsKid:[],
             check:0,//默认第一个TAB
+            itemHeight:'100',//左侧每类产品高度,
+            listHeight:'',
         }
     },
     methods:{
@@ -38,6 +40,7 @@ export default {
           fly.get(url
           ).then(res=>{
               this.kinds=res.data;
+              this.listHeight=this.itemHeight*this.kinds.length;//根据产品个数计算左侧栏高度
               for(let i=0;i<res.data.length;i++){
                   this.kindsKid.push(res.data[i].childrens);
               }
@@ -46,7 +49,7 @@ export default {
       //Tab切换
       onTab(index){
           this.check=index;
-      }
+      },
     },
     created(){
         this.getKind();
@@ -57,22 +60,27 @@ export default {
 #classify{
     display: flex;
     flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background: #ffffff;
+    position: relative;
 }
 .cfy-left{
     width: 20%;
-    background: yellow;
+    height: 100%;
+    background: #F7F8FA;
 }
-.cfy-left li{
+.list{
     text-align: center;
     padding: 0 10rpx;
     height: 100rpx;
     line-height: 100rpx;
     border-top: 1px solid black;
 }
-.cfy-left li span{
+.list span{
     font-size:38rpx
 }
-.cfy-left li.active{
+.list.active{
     color: red;
 }
 .cfy-right{
