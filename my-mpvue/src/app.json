@@ -4,7 +4,9 @@
     "pages/classify/main",
     "pages/counter/main",
     "pages/prodetails/main",
-    "pages/mine/main"
+    "pages/mine/main",
+    "pages/address/main"
+
 
   ],
   "window": {
@@ -52,7 +54,18 @@
     "van-search": "static/vant/dist/search/index",
     "van-icon": "static/vant/dist/icon/index",
     "van-card": "static/vant/dist/card/index",
-    "van-tree-select": "static/vant/dist/tree-select/index"
+    "van-tree-select": "static/vant/dist/tree-select/index",
+    "van-cell": "static/vant/dist/cell/index",
+    "van-cell-group": "static/vant/dist/cell-group/index",
+    "van-goods-action": "static/vant/dist/goods-action/index",
+    "van-goods-action-icon": "static/vant/dist/goods-action-icon/index",
+    "van-goods-action-button": "static/vant/dist/goods-action-button/index",
+    "van-popup": "static/vant/dist/popup/index",
+    "van-row": "static/vant/dist/row/index",
+    "van-col": "static/vant/dist/col/index",
+    "van-stepper": "static/vant/dist/stepper/index",
+    "van-field": "static/vant/dist/field/index",
+    "van-area": "static/vant/dist/area/index"
   }
 
 }

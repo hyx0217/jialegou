@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style='height: 100%;'>
     <sea></sea>
-    <tree></tree>
+    <tree></tree> 
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-page{
-  background: #ffffff;
+page{ 
+  height: 100%;
 }
 </style>

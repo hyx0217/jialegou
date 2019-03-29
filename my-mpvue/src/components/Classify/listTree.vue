@@ -1,7 +1,7 @@
 <template>
     <div id='classify'>
         <div class='cfy-left'>
-             <scroll-view scroll-y='true' :style="{height:listHeight+'rpx'}">
+             <scroll-view scroll-y='true' style='height:100%'>
                     <view v-for="(item,index) in kinds" :key="index" @click="onTab(index)" :class='{active:check===index}' class='list'>
                         <span>{{item.name}}</span>
                     </view>
@@ -50,22 +50,38 @@ export default {
       onTab(index){
           this.check=index;
       },
+      //获取高度
+      getHeight(){
+          var query = wx.createSelectorQuery();
+          query.select('#classify').boundingClientRect(rects=>{
+              console.log(rects);
+          }).exec()
+
+      }
     },
     created(){
         this.getKind();
+        this.getHeight();
     }
 }
 </script>
 <style>
+/****隐藏滚动条***/
+::-webkit-scrollbar{
+width: 0;
+height: 0;
+color: transparent;
+}
 #classify{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+    height: 92%;
     width: 100%;
     background: #ffffff;
     position: relative;
+
 }
 .cfy-left{
+    position: absolute;
+    left:0;
     width: 20%;
     height: 100%;
     background: #F7F8FA;
@@ -75,15 +91,17 @@ export default {
     padding: 0 10rpx;
     height: 100rpx;
     line-height: 100rpx;
-    border-top: 1px solid black;
+    border-top: 1px solid #c3c3c3;
 }
 .list span{
-    font-size:38rpx
+    font-size:32rpx
 }
 .list.active{
     color: red;
 }
 .cfy-right{
+    position: absolute;
+    right:0;
     width: 80%;
 }
 
@@ -101,9 +119,8 @@ export default {
 
 }
 .kid li{
-    width: 30%;
-    background: red;
-    margin:10rpx;
+    width: 33%;
+    margin-top:30rpx;
 }
 .kid li a{
     display: flex;
