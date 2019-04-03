@@ -10,7 +10,7 @@
             </view>
         </view>
         <div style="margin-bottom:30rpx;">
-            <van-cell title="我的订单" value='查看全部订单' is-link/>
+            <van-cell title="我的订单" value='查看全部订单' is-link  url="/pages/order/main"/>
             <ul class='mine-pay'>
                 <li>
                    

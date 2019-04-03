@@ -5,7 +5,8 @@
     "pages/counter/main",
     "pages/prodetails/main",
     "pages/mine/main",
-    "pages/address/main"
+    "pages/address/main",
+    "pages/order/main"
 
 
   ],
@@ -65,7 +66,9 @@
     "van-col": "static/vant/dist/col/index",
     "van-stepper": "static/vant/dist/stepper/index",
     "van-field": "static/vant/dist/field/index",
-    "van-area": "static/vant/dist/area/index"
+    "van-area": "static/vant/dist/area/index",
+    "van-tab": "static/vant/dist/tab/index",
+  "van-tabs": "static/vant/dist/tabs/index"
   }
 
 }

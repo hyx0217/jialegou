@@ -38,5 +38,16 @@ module.exports=function(){
                     })       
                 }
         }),
+        order:lodash.times(10,function(n){
+            return{
+                id:n,
+                name:Mock.Random.name(),
+                img:faker.image.image(),
+                pay:Mock.Random.boolean(),
+                comment:Mock.Random.boolean(),
+                send:Mock.Random.boolean(),
+                price:Mock.Random.natural(100, 1000),
+            }
+        })
     }
 }
