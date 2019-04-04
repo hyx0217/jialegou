@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-search :value=" value " placeholder="请输入搜索关键词" />
-    <van-tabs :active="active" @change="onChange">
+    <van-tabs :active="active">
       <van-tab title="全部">
         <p v-for='(item,index) in allOrder' :key='index' style='margin-top:20rpx'>
            <van-card
@@ -97,7 +97,7 @@ export default {
   data(){
     return{
       active: 0,
-      url:'http://localhost:3000/order',
+      baseUrl:process.env.API_ROOT,
       allOrder:[],
       payOrder:[],
       waitSendOrder:[],
@@ -108,30 +108,27 @@ export default {
   methods:{
     //获取全部订单
     getAll(){
-      fly.get(this.url).then(res=>{
+      fly.get(`${this.baseUrl}/order`).then(res=>{
         this.allOrder=res.data
         for(var value in res.data){
-          if(!res.data[value].pay){
-            this.payOrder.push(res.data[value])//未付款的
-          }else if(!res.data[value].comment){
-            this.commentOrder.push(res.data[value])//待评价
-          }else if(!res.data[value].send){
-            this.waitSendOrder.push(res.data[value])//未发货
+          if(!res.data[value].send){
+            this.waitSendOrder.push(res.data[value]);//未发货
           }else if(res.data[value].send){
-            this.sendOrder.push(res.data[value])//已发货
+            this.sendOrder.push(res.data[value]);//已发货
+          } 
+         if(!res.data[value].pay){
+            this.payOrder.push(res.data[value]);//未付款的
+          }else if(!res.data[value].comment){
+            this.commentOrder.push(res.data[value]);//待评价
           }
         }
       })
     },
-    onChange(event) {
-      wx.showToast({
-        title: `切换到标签 ${event.detail.index + 1}`,
-        icon: 'none'
-      });
-    }
   },
   mounted(){
     this.getAll()
+      this.active=this.$root.$mp.query.active
+ 
   }
 }
 </script>

@@ -36,7 +36,8 @@ export default {
     },
     methods:{
         getKind(){
-          var url='http://localhost:3000/tree'
+            const baseUrl=process.env.API_ROOT
+          var url=`${baseUrl}/tree`
           fly.get(url
           ).then(res=>{
               this.kinds=res.data;

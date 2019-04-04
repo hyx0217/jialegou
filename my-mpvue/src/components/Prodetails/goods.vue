@@ -67,7 +67,8 @@ export default {
   },
   methods: {
     getDetail(){
-        var url='http://localhost:3000/product/'+this.id
+            const baseUrl=process.env.API_ROOT
+        var url=`${baseUrl}/product/${this.id}`
         fly.get(url).then(res=>{
             this.product=res.data
         })

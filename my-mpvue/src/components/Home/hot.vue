@@ -89,19 +89,20 @@ export default {
     data(){
         return{
             hotProduct:[],
-            page:1
+            page:1,
+           
         }
     },
     methods: {
       getHot(){
-          var url='http://localhost:3000/product?_limit=8&_page='+this.page
+          const baseUrl=process.env.API_ROOT
+          var url=`${baseUrl}/product?_limit=8&_page=${this.page}`
           fly.get(url
           ).then(res=>{
             this.page=this.page+1;
             for(var i=0;i<res.data.length;i++){
                 this.hotProduct.push(res.data[i])
             }
-            console.log(this.hotProduct)
           })
       }
     },
@@ -110,7 +111,7 @@ export default {
         this.getHot();
     },
     created () {
-       this.getHot()
+       this.getHot();
     }
 }
 </script>

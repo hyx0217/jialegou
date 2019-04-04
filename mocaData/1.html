@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    var A=
+[1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1,1,0,0,1,1,1]
+   /*  var newarr=[];
+    var result=[];
+    var str=A.join('');
+    for(var i=1;i<=A.length;i++){
+        newarr.push(parseInt(str.substring(0,i),2));
+    }
+    console.log(newarr);
+    for(var j=0;j<newarr.length;j++){
+        if(newarr[j]%5==0){
+            result.push(true)
+        }else{
+            result.push(false)
+        }
+    }
+    console.log(result) */
+
+    // let num = 0
+    var prefixesDivBy5 = function (A) {
+    let num = 0
+    console.log( A.map((v) => {
+        
+        num = ((num << 1) + v) ;
+        return num % 5 === 0
+    }))
+    };
+    prefixesDivBy5(A)
+</script>
+</html>
