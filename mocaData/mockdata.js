@@ -12,7 +12,9 @@ module.exports=function(){
                 price:Mock.Random.natural(100, 1000),
                 stars:Mock.mock({
                     'number|1-100':100
-                })
+                }),
+                num:2,
+                ischeck:false,
             }
         }),
         news:lodash.times(100,function(n){

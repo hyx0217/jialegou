@@ -10,33 +10,29 @@
     
 </body>
 <script>
-    var A=
-[1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,1,1,1,1,1,1,0,0,0,1,0,1,1,1,1,0,1,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,1,1,0,0,1,1,1]
-   /*  var newarr=[];
-    var result=[];
-    var str=A.join('');
-    for(var i=1;i<=A.length;i++){
-        newarr.push(parseInt(str.substring(0,i),2));
-    }
-    console.log(newarr);
-    for(var j=0;j<newarr.length;j++){
-        if(newarr[j]%5==0){
-            result.push(true)
-        }else{
-            result.push(false)
+    var s='abcdefg'
+  var convert = function(s, numRows) {
+    var newarr=[];
+
+
+    var length=Math.floor(s.length/numRows);
+    for(var i=0;i<3;i++){
+        newarr[i]=[]
+      
+        for(var j=0;j<numRows;j++){
+            var n=(numRows-1)*i
+            console.log(n,j);
+            newarr[n][j]=j;
         }
     }
-    console.log(result) */
-
-    // let num = 0
-    var prefixesDivBy5 = function (A) {
-    let num = 0
-    console.log( A.map((v) => {
-        
-        num = ((num << 1) + v) ;
-        return num % 5 === 0
-    }))
-    };
-    prefixesDivBy5(A)
+   /*  for(var k=0;k<numRows;k++){
+     
+        console.log(newarr[k][numRows-k]);
+        newarr[k][numRows-k]=s.charAt(k+numRows); 
+    } */
+  
+    console.log(newarr)
+};
+    convert(s,3)
 </script>
 </html>
