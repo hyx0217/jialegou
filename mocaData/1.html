@@ -10,29 +10,15 @@
     
 </body>
 <script>
-    var s='abcdefg'
-  var convert = function(s, numRows) {
-    var newarr=[];
-
-
-    var length=Math.floor(s.length/numRows);
-    for(var i=0;i<3;i++){
-        newarr[i]=[]
-      
-        for(var j=0;j<numRows;j++){
-            var n=(numRows-1)*i
-            console.log(n,j);
-            newarr[n][j]=j;
-        }
+     var obj=new Object()
+     obj.name='hyx';
+     obj.sex='man'
+    var proxy = new Proxy(obj, {
+    get: function(target, property) {
+        return target.property
     }
-   /*  for(var k=0;k<numRows;k++){
-     
-        console.log(newarr[k][numRows-k]);
-        newarr[k][numRows-k]=s.charAt(k+numRows); 
-    } */
-  
-    console.log(newarr)
-};
-    convert(s,3)
+    });
+   
+    console.log(obj.sex)
 </script>
 </html>
