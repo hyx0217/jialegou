@@ -29,7 +29,7 @@ export default {
         return{
             kinds:'',
             kindsKid:[],
-            check:0,//默认第一个TAB
+            check:-1,//默认第一个TAB
             itemHeight:'100',//左侧每类产品高度,
             listHeight:'',
         }
