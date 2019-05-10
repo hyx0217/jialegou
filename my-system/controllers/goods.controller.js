@@ -1,27 +1,27 @@
-const mongoose=require('mongoose');
-const User = require('../models/goods.model');
-module.exports={
-  get:function(req,res,next){
+const mongoose = require('mongoose');
+const Good = require('../models/goods.model');
+module.exports = {
+  get: function (req, res, next) {
     var id = req.params.id;
-    console.log(id)
-    User.findById(id).then(data=>{
+    User.findById(id).then(data => {
       res.json(data);
     })
   },
-  create:function(req,res,next){
-    const good=new Good({
-      G_name: 'Air jordon 1 新秀',
-      G_parentId: '5ccff87ee92a552647a5410b',
-      G_price: '1300.00',
-      G_sell: '500',
-      G_img:
-       'http://wx1.sinaimg.cn/mw690/005A9zIVgy1fuxplbbqyvj30fi0f446v.jpg' });
-    good.save(function(err, res) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(res);
-      }
+  create: function (req, res, next) {
+    const good = new Good(req.body)
+    good.save().then(data => {
+      res.json(data);
+
     });
-  }
+  },
+  list:function(req,res,next){
+    var page=req.body.page?req.body.page:1;
+    var rows=req.body.rows?req.body.rows:3
+    Good.paginate({}, { sort:({_id:-1}), page:+page, limit:+rows}, function(err, result) {
+      console.log(result)
+      result.rows=result.docs
+      delete result.docs
+        res.json(result.rows)
+      });
+},
 }
