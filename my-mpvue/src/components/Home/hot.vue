@@ -58,8 +58,8 @@
       </h3>
       <scroll-view scroll-x="true" class="hot-x">
         <view v-for="(item, index) in hotProduct" :key="index" class="hot-item">
-          <img :src="item.img" style="width: 200rpx; height:200rpx">
-          <p>{{item.name}}</p>
+          <img :src="item.G_img" style="width: 200rpx; height:200rpx">
+          <p>{{item.G_name}}</p>
         </view>
       </scroll-view>
     </div>
@@ -71,12 +71,12 @@
         <view v-for="(item, index) in hotProduct" :key="index" class="item-y">
           <a>
             <van-card
-              :thumb-link="'/pages/prodetails/main?id='+item.id"
+              :thumb-link="'/pages/prodetails/main?id='+item._id"
               centered="true"
-              :price="item.price"
-              desc="描述信息"
-              :title="item.name"
-              :thumb="item.img "
+              :price="item.G_price"
+              :desc="'销量:'+item.G_sell"
+              :title="item.G_name"
+              :thumb="item.G_img "
             />
           </a>
         </view>
@@ -98,11 +98,11 @@ export default {
     methods: {
       getHot(){
           const baseUrl=process.env.API_ROOT
-          var url=`http://localhost:3000/goods/list`
+          var url=`${baseUrl}/goods/list`
           fly.post(url,
           {
               page:this.page,
-              rows:8
+              rows:5
           }
           ).then(res=>{
               console.log(res)

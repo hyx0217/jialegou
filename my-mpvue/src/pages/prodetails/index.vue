@@ -1,11 +1,11 @@
 <template>
   <div id="goods">
-    <img :src="product.img">
+    <img :src="product.G_img">
     <van-cell-group>
-      <van-cell :title="product.name" :value="'￥'+product.price"/>
+      <van-cell :title="product.name" :value="'￥'+product.G_price"/>
     </van-cell-group>
     <van-cell-group>
-      <van-cell title="运费￥0.00-20.00" :value="'剩余:'+product.price"/>
+      <van-cell title="运费￥0.00-20.00" :value="'销量:'+product.G_sell"/>
     </van-cell-group>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服"/>
@@ -19,12 +19,12 @@
         <van-row>
           <van-col span="4" offset="2">
             <div style="border: 1px solid #c3c3c3;width:100rpx;height:100rpx;">
-              <img :src="product.img" style="width:100%;height:100%">
+              <img :src="product.G_img" style="width:100%;height:100%">
             </div>
           </van-col>
           <van-col span="16" offset="1">
-            <p>{{product.name}}</p>
-            <span class="price">￥{{product.price}}</span>
+            <p>{{product.G_name}}</p>
+            <span class="price">￥{{product.G_price}}</span>
           </van-col>
         </van-row>
       </div>
@@ -32,7 +32,7 @@
         <van-row style="margin-bottom:15rpx">
           <van-col span="15" offset="1" class="modal-left">
             <p>购买数量:</p>
-            <p>剩余:{{product.price}}件</p>
+            <p>剩余:{{product.G_sell}}件</p>
           </van-col>
           <van-col span="8">
             <van-stepper :value="1" @change="onChange"/>
@@ -57,10 +57,9 @@ export default {
   },
   methods: {
     getDetail() {
-      var url = `${this.baseUrl}/product/${this.id}`;
+      var url = `${this.baseUrl}/goods/${this.id}`;
       fly.get(url).then(res => {
         this.product = res.data;
-        console.log(res.data)
       });
     },
     //弹出底部组件
