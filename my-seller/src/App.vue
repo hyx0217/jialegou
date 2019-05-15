@@ -1,4 +1,5 @@
 <script>
+import store from './store.js'
 export default {
   created () {
     // 调用API从本地缓存中获取数据
@@ -9,24 +10,14 @@ export default {
      * 百度：mpvue === swan, mpvuePlatform === 'swan'
      * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
      */
-
-    let logs
-    if (mpvuePlatform === 'my') {
-      logs = mpvue.getStorageSync({key: 'logs'}).data || []
-      logs.unshift(Date.now())
-      mpvue.setStorageSync({
-        key: 'logs',
-        data: logs
-      })
-    } else {
-      logs = mpvue.getStorageSync('logs') || []
-      logs.unshift(Date.now())
-      mpvue.setStorageSync('logs', logs)
-    }
-  },
-  log () {
-    console.log(`log at:${Date.now()}`)
-  }
+    //监测登录状态
+    mpvue.getStorage({
+      key: "_id",
+      success(res) {
+        store.commit('login',res.data)
+      }
+    })
+}
 }
 </script>
 

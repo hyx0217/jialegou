@@ -3,7 +3,11 @@
     "pages/index/main",
     "pages/logs/main",
     "pages/own/main",
-    "pages/login/main"
+    "pages/login/main",
+    "pages/build/main",
+    "pages/goods/main"
+
+
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -56,6 +60,7 @@
     "van-tabs": "static/vant/dist/tabs/index",
     "van-submit-bar": "static/vant/dist/submit-bar/index",
     "van-checkbox": "static/vant/dist/checkbox/index",
-    "van-checkbox-group": "static/vant/dist/checkbox-group/index"
+    "van-checkbox-group": "static/vant/dist/checkbox-group/index",
+    "van-dialog": "static/vant/dist/dialog/index"
   }
 }
