@@ -6,6 +6,7 @@ const schema = new mongoose.Schema({
     G_img:Array,
     G_price:String,
     G_sell:Number,
+    G_type:String
 });
 schema.plugin(mongoosePaginate);
 const Goods = mongoose.model('goods',schema);

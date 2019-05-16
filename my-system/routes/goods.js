@@ -5,5 +5,7 @@ const dataCtrl = require('../controllers/goods.controller');
 router.post('/',dataCtrl.create);
 router.post('/list',dataCtrl.list); //分页
 router.get('/:id',dataCtrl.get) ;
+router.get('/listByStore/:parentId',dataCtrl.listByStore) ;
+
 
 module.exports = router;

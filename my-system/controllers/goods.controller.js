@@ -23,4 +23,14 @@ module.exports = {
         res.json(result.rows)
       });
 },
+  listByStore:function(req,res,next){
+   const parentId=req.params.parentId
+   Good.find({G_parentId:parentId}).then(data=>{
+    if(data){
+      res.json({'msg':'查找成功','status':200,'result':data})
+    }else{
+      res.json({'msg':'查找失败','status':400,'result':{}})
+    }
+})
+  }
 }
