@@ -3,7 +3,7 @@ const mongoosePaginate = require('mongoose-paginate');
 const schema = new mongoose.Schema({
     G_name:String,
     G_parentId: String,
-    G_img:String,
+    G_img:Array,
     G_price:String,
     G_sell:Number,
 });
