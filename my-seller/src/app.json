@@ -61,6 +61,7 @@
     "van-submit-bar": "static/vant/dist/submit-bar/index",
     "van-checkbox": "static/vant/dist/checkbox/index",
     "van-checkbox-group": "static/vant/dist/checkbox-group/index",
-    "van-dialog": "static/vant/dist/dialog/index"
+    "van-dialog": "static/vant/dist/dialog/index",
+    "van-toast": "static/vant/dist/toast/index"
   }
 }

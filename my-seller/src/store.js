@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userId: ''
+    userId: '',
+    storeId:''
   },
   mutations: {
     login: (state,payload) => {
       state.userId=payload
+    },
+    keepStore: (state,payload) => {
+      state.storeId=payload
     }
   }
 })

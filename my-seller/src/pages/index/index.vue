@@ -51,7 +51,8 @@ export default {
         //判断用户是否拥有店铺
           if(res.data.status==200){
               this.show = 0;
-              this.storeInfo=res.data.result
+              this.storeInfo=res.data.result;
+              store.commit('keepStore',res.data.result._id)
           }else{
               this.show=2
           }

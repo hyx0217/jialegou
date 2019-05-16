@@ -12,14 +12,13 @@
       </div>
     </div>
     <div v-else>
-        <newGoods></newGoods>
+        <newgoods></newgoods>
     </div>
   </div>
 </template>
 
 <script>
 import newgoods from "@/components/newGoods.vue";
-import home from '@/components/home.vue'
 
 export default {
   components: {
