@@ -9,6 +9,8 @@ var userRouter = require('./routes/user');
 var goodsRouter = require('./routes/goods');
 var sellerRouter = require('./routes/seller');
 var storeRouter = require('./routes/store');
+var commentsRouter = require('./routes/comments');
+
 
 const conn = mongoose.connection
 var app = express();
@@ -30,6 +32,8 @@ app.use('/user', userRouter);
 app.use('/goods', goodsRouter);
 app.use('/seller', sellerRouter);
 app.use('/store', storeRouter);
+app.use('/comments', commentsRouter);
+
 
 
 // catch 404 and forward to error handler

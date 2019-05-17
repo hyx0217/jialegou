@@ -5,9 +5,9 @@
     "pages/own/main",
     "pages/login/main",
     "pages/build/main",
-    "pages/goods/main"
-
-
+    "pages/goods/main",
+    "pages/goodsdetail/main",
+    "pages/editdetail/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

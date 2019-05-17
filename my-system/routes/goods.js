@@ -6,6 +6,10 @@ router.post('/',dataCtrl.create);
 router.post('/list',dataCtrl.list); //分页
 router.get('/:id',dataCtrl.get) ;
 router.get('/listByStore/:parentId',dataCtrl.listByStore) ;
+router.get('/listByNone/:parentId',dataCtrl.listByNone) ;
+
+router.put('/:id',dataCtrl.update)
+router.delete('/:id',dataCtrl.delete)
 
 
 module.exports = router;

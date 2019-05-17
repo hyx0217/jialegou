@@ -25,10 +25,9 @@
       </van-popup>
 
     </van-cell-group>
-    <div style="position:absolute;bottom:0; width:100%">
+    <div style="position:fixed;bottom:0; width:100%">
       <van-button type="danger" size="large" @click="pushGoods">上架</van-button>
       <van-button type="default" size="large" @click="toBack">返回</van-button>
-
     </div>
   </div>
 </template>
@@ -45,7 +44,8 @@
           G_img: [],
           G_price: '',
           G_num: '',
-          G_type: ''
+          G_type: '',
+          G_sell:0
         },
         img_total: [],
         columns: ['电脑', '手机', '上衣', '裤子', '零食','运动鞋', '其他'],
