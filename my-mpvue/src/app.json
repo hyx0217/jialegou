@@ -2,11 +2,13 @@
   "pages": [
     "pages/index/main",
     "pages/classify/main",
-    "pages/counter/main",
+    "pages/cates/main",
     "pages/prodetails/main",
     "pages/mine/main",
     "pages/address/main",
-    "pages/order/main"
+    "pages/order/main",
+    "pages/confirm/main"
+
 
 
   ],
@@ -36,7 +38,7 @@
     },
     {
       "text": "购物车",
-      "pagePath": "pages/counter/main",
+      "pagePath": "pages/cates/main",
       "iconPath": "static/tabs/cart.png",
       "selectedIconPath": "static/tabs/cart-active.png"
     },

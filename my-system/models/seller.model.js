@@ -4,7 +4,8 @@ const schema = new mongoose.Schema({
     U_type:String,
     U_pay:String,
     U_phone:String,
-    U_password:String
+    U_password:String,
+    U_img:String
 });
 const Seller = mongoose.model('sellers',schema);
 module.exports = Seller;

@@ -76,8 +76,8 @@ export default {
           message: "删除中..."
         });
         setTimeout(function() {
-          mpvue.redirectTo({
-            url: "/pages/goods/main"
+          mpvue.switchTab({
+            url: "/pages/index/main"
           });
         }, 2000);
       });

@@ -85,8 +85,6 @@
   </div>
 </template>
 <script>
-var Fly=require("flyio/dist/npm/wx") 
-var fly=new Fly
 export default {
     data(){
         return{
@@ -99,7 +97,7 @@ export default {
       getHot(){
           const baseUrl=process.env.API_ROOT
           var url=`${baseUrl}/goods/list`
-          fly.post(url,
+          this.$fly.post(url,
           {
               page:this.page,
               rows:5

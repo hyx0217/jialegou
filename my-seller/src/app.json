@@ -2,7 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/logs/main",
-    "pages/own/main",
+    "pages/mine/main",
     "pages/login/main",
     "pages/build/main",
     "pages/goods/main",
@@ -34,7 +34,7 @@
     },
     {
       "text": "我的",
-      "pagePath": "pages/own/main",
+      "pagePath": "pages/mine/main",
       "iconPath": "static/tabs/mine.png",
       "selectedIconPath": "static/tabs/mine-active.png"
     }]

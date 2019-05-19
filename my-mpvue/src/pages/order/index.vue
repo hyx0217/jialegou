@@ -29,8 +29,8 @@
             :thumb="item.img"
           >
             <view slot="footer">
-              <van-button size="mini">取消订单</van-button>
-              <van-button size="mini">确认订单</van-button>
+              <van-button size="mini" @click='delOrder(item._id)'>取消订单</van-button>
+              <van-button size="mini" @click='cfmOrder(item._id)'>确认订单</van-button>
             </view>
           </van-card>
         </p>
@@ -44,10 +44,6 @@
             :title="item.name"
             :thumb="item.img"
           >
-            <view slot="footer">
-              <van-button size="mini">取消订单</van-button>
-              <van-button size="mini">确认订单</van-button>
-            </view>
           </van-card>
         </p>
       </van-tab>
@@ -61,8 +57,8 @@
             :thumb="item.img"
           >
             <view slot="footer">
-              <van-button size="mini">取消订单</van-button>
-              <van-button size="mini">确认订单</van-button>
+              <van-button v-if='!item.receive' size="mini" @click='receive(item._id)'>确认收货</van-button>
+              <p v-else>已收货</p>
             </view>
           </van-card>
         </p>
@@ -77,8 +73,7 @@
             :thumb="item.img"
           >
             <view slot="footer">
-              <van-button size="mini">取消订单</van-button>
-              <van-button size="mini">确认订单</van-button>
+              <van-button size="mini">去评价</van-button>
             </view>
           </van-card>
         </p>
@@ -90,14 +85,11 @@
 
 <script>
 // Use Vuex
-import store from './store'
-var Fly=require("flyio/dist/npm/wx") 
-var fly=new Fly
+import store from '../../store'
 export default {
   data(){
     return{
       active: 0,
-      baseUrl:process.env.API_ROOT,
       allOrder:[],
       payOrder:[],
       waitSendOrder:[],
@@ -108,22 +100,44 @@ export default {
   methods:{
     //获取全部订单
     getAll(){
-      fly.get(`${this.baseUrl}/order`).then(res=>{
-        this.allOrder=res.data
+      this.$fly.get(`${this.baseUrl}/order/${store.state.userId}`).then(res=>{
+        this.allOrder=res.data;
+        this.payOrder=[];
+        this.waitSendOrder=[];
+        this.sendOrder=[];
+        this.commentOrder=[]
         for(var value in res.data){
-          if(!res.data[value].send){
+          if(!res.data[value].send && res.data[value].pay){
             this.waitSendOrder.push(res.data[value]);//未发货
           }else if(res.data[value].send){
             this.sendOrder.push(res.data[value]);//已发货
           } 
          if(!res.data[value].pay){
             this.payOrder.push(res.data[value]);//未付款的
-          }else if(!res.data[value].comment){
-            this.commentOrder.push(res.data[value]);//待评价
+          }else if(!res.data[value].comment && res.data[value].receive ){
+            this.commentOrder.push(res.data[value]);//已确认收货评价
           }
         }
       })
     },
+    //确认收货
+    receive(id){
+      this.$fly.put(`${this.baseUrl}/order/${id}`,{receive:true}).then(res=>{
+        console.log(res)
+        this.getAll()
+      })
+    },
+    delOrder(id){
+      this.$fly.delete(`${this.baseUrl}/order/${id}`).then(res=>{
+        
+      })
+      this.getAll()
+    },
+    cfmOrder(id){
+      this.$fly.put(`${this.baseUrl}/order/${id}`,{pay:true}).then(res=>{
+        this.getAll()
+      })
+    }
   },
   mounted(){
     this.getAll()

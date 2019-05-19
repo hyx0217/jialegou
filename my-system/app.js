@@ -10,6 +10,8 @@ var goodsRouter = require('./routes/goods');
 var sellerRouter = require('./routes/seller');
 var storeRouter = require('./routes/store');
 var commentsRouter = require('./routes/comments');
+var orderRouter = require('./routes/order');
+
 
 
 const conn = mongoose.connection
@@ -33,6 +35,8 @@ app.use('/goods', goodsRouter);
 app.use('/seller', sellerRouter);
 app.use('/store', storeRouter);
 app.use('/comments', commentsRouter);
+app.use('/order', orderRouter);
+
 
 
 

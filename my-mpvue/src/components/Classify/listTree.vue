@@ -3,7 +3,7 @@
         <div class='cfy-left'>
              <scroll-view scroll-y='true' style='height:100%'>
                     <view v-for="(item,index) in kinds" :key="index" @click="onTab(index)" :class='{active:check===index}' class='list'>
-                        <span>{{item.name}}</span>
+                        <span>{{item}}</span>
                     </view>
              </scroll-view>
         </div>
@@ -22,12 +22,11 @@
     </div>
 </template>
 <script>
-var Fly=require("flyio/dist/npm/wx") 
-var fly=new Fly
+
 export default {
     data(){
         return{
-            kinds:'',
+            kinds:['全部分类','上衣','下装','球鞋','电脑办公','休闲零食','美妆护肤','手机数码','其他'],
             kindsKid:[],
             check:-1,//默认第一个TAB
             itemHeight:'100',//左侧每类产品高度,
@@ -35,10 +34,10 @@ export default {
         }
     },
     methods:{
-        getKind(){
+        /* getKind(){
             const baseUrl=process.env.API_ROOT
           var url=`${baseUrl}/tree`
-          fly.get(url
+          this.$fly.get(url
           ).then(res=>{
               this.kinds=res.data;
               this.listHeight=this.itemHeight*this.kinds.length;//根据产品个数计算左侧栏高度
@@ -46,7 +45,7 @@ export default {
                   this.kindsKid.push(res.data[i].childrens);
               }
           })
-      },
+      }, */
       //Tab切换
       onTab(index){
           this.check=index;
@@ -61,7 +60,7 @@ export default {
       }
     },
     created(){
-        this.getKind();
+        this.listHeight=this.itemHeight*this.kinds.length;//根据产品个数计算左侧栏高度
         this.getHeight();
     }
 }

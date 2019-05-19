@@ -2,10 +2,10 @@
   <div id='mine'>
     <view class="mine-top">
       <view class="userinfo">
-        <button v-if="!hasUserInfo && canIUse" open-type="getUserInfo" @click="getUserInfo"> 登录 </button>
+        <button v-if="!hasUserInfo && canIUse" open-type="getUserInfo" @click="getUserInfo"> 获取头像昵称 </button>
         <block v-else>
-          <image class="userinfo-avatar" :src="userImg" mode="cover"></image>
-          <text class="userinfo-nickname">{{userName}}</text>
+          <img class="userinfo-avatar" :src="userinfo.U_img" mode="cover">
+          <text class="userinfo-nickname">{{userinfo.U_phone}}</text>
         </block>
       </view>
     </view>
@@ -42,6 +42,12 @@
     <van-cell title="我的钱包" is-link />
     <van-cell title="我的消息" is-link />
     <van-cell title="我要开店" is-link />
+    <div v-if="id">
+        <van-button type='danger' size='large' @click='outUser'>退出登录</van-button>
+    </div>
+    <div v-else>
+        <a href='/pages/login/main'><van-button type='danger' size='large'>登录</van-button></a>
+    </div>
   </div>
 </template>
 <script>
@@ -49,48 +55,35 @@
   export default {
     data() {
       return {
-        userName: '', //用户昵称
-        userImg: '', //用户头像
-        hasUserInfo: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo')
+        id:store.state.userId,
+        userinfo: ''
       }
     },
     methods: {
-      getUserInfo() {
-        let that = this;
-        wx.getUserInfo({
-          success: function (res) {
-            //登陆成功，在数据库创建
-            that.$fly.post(`${that.baseUrl}/user`, {
-              U_name: res.userInfo.nickName,
-              U_img: res.userInfo.avatarUrl
-            }).then(res => {
-              //将用户Id存入cookie并且存入仓库
-              store.commit('login', res.data._id)
-              wx.setStorage({
-                key: "_id",
-                data: res.data._id
-              });
-            })
-            that.userImg = res.userInfo.avatarUrl;
-            that.userName = res.userInfo.nickName;
-            that.hasUserInfo = true;
-          }
-        })
+      getUser() {
+        if (store.state.userId) {
+          this.$fly.get(`${this.baseUrl}/seller/${store.state.userId}`).then(res => {
+            this.userinfo = res.data.result
+          })
+        }else{
+          this.id='';
+          this.userinfo={};
+        }
       },
-    },
-    mounted() {
-      //存在用户获取
-      const that=this
-      if(store.state.userId){
-        wx.getUserInfo({
-          success:function(res){
-            that.userImg = res.userInfo.avatarUrl;
-            that.userName = res.userInfo.nickName;
-            that.hasUserInfo = true;
+      outUser() {
+        var that=this;
+        mpvue.removeStorage({
+          key: '_id',
+          success(res) {
+            store.commit('login', '')
+            that.getUser()
           }
         })
       }
+    },
+    onShow() {
+      this.id=store.state.userId,
+      this.getUser()
     }
   }
 

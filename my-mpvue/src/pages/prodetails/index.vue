@@ -2,14 +2,14 @@
   <div id="goods">
     <img :src="product.G_img">
     <van-cell-group>
-      <van-cell :title="product.name" :value="'￥'+product.G_price"/>
+      <van-cell :title="product.G_name" :value="'￥'+product.G_price"/>
     </van-cell-group>
     <van-cell-group>
       <van-cell title="运费￥0.00-20.00" :value="'销量:'+product.G_sell"/>
     </van-cell-group>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服"/>
-      <van-goods-action-icon icon="cart-o" text="购物车" info="5"/>
+      <van-goods-action-icon icon="cart-o" @click='goCates' text="购物车"/>
       <van-goods-action-icon icon="shop-o" text="店铺"/>
       <van-goods-action-button text="加入购物车" type="warning" @click="onShow"/>
       <van-goods-action-button text="立即购买"/>
@@ -32,43 +32,68 @@
         <van-row style="margin-bottom:15rpx">
           <van-col span="15" offset="1" class="modal-left">
             <p>购买数量:</p>
-            <p>剩余:{{product.G_sell}}件</p>
+            <p>剩余:{{product.G_num}}件</p>
           </van-col>
           <van-col span="8">
-            <van-stepper :value="1" @change="onChange"/>
+            <van-stepper :value="total" @change="onChangeTotal($event)"/>
           </van-col>
         </van-row>
-        <van-goods-action-button text="确定"/>
+        <van-goods-action-button text="确定" @click='addCates'/>
       </div>
     </van-popup>
   </div>
 </template>
 <script>
-var Fly = require("flyio/dist/npm/wx");
-var fly = new Fly();
+  import store from '../../store'
 export default {
   data() {
     return {
       id: "",
-      product: [],
+      product: '',
       show: false,
-      baseUrl:process.env.API_ROOT
+      total:1,
     };
   },
   methods: {
+    goCates(){
+      mpvue.switchTab({
+        url:'/pages/cates/main'
+      })
+    },
     getDetail() {
       var url = `${this.baseUrl}/goods/${this.id}`;
-      fly.get(url).then(res => {
+      this.$fly.get(url).then(res => {
         this.product = res.data;
       });
     },
+    //添加到购物车
+    addCates(){
+      this.$fly.put(`${this.baseUrl}/user/cates/${store.state.userId}`,{
+        U_cates:{
+          id:this.product._id,
+          S_id:this.product.G_parentId,
+          name:this.product.G_name,
+          price:this.product.G_price,
+          img:this.product.G_img[0],
+          ischeck:false,
+          num:this.total
+        }
+      }).then(res=>{
+        console.log(res)
+      })
+    },
     //弹出底部组件
     onShow() {
+      this.total=1
       this.show = true;
     },
     onClose() {
    /*    fly.post(url,{this.product}) */
       this.show = false;
+    },
+    onChangeTotal(ev){
+      console.log(ev)
+      this.total=ev.mp.detail
     }
   },
   mounted() {
