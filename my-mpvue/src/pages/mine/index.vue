@@ -67,9 +67,14 @@
             }).then(res => {
               //将用户Id存入cookie并且存入仓库
               store.commit('login', res.data._id)
+              store.commit('name', res.data.U_name)
               wx.setStorage({
                 key: "_id",
                 data: res.data._id
+              });
+              wx.setStorage({
+                key: "username",
+                data: res.data.U_name
               });
             })
             that.userImg = res.userInfo.avatarUrl;

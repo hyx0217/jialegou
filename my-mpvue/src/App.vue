@@ -1,7 +1,7 @@
 <script>
-  import store from './store'
+import store from "./store";
 export default {
-  created () {
+  created() {
     // 调用API从本地缓存中获取数据
     /*
      * 平台 api 差异的处理方式:  api 方法统一挂载到 mpvue 名称空间, 平台判断通过 mpvuePlatform 特征字符串
@@ -11,21 +11,26 @@ export default {
      * 支付宝(蚂蚁)：mpvue === my, mpvuePlatform === 'my'
      */
     //监控登录状态
-     mpvue.getStorage({
+    mpvue.getStorage({
       key: "_id",
       success(res) {
-        store.commit('login',res.data)
+        store.commit("login", res.data);
       }
-    })
+    });
+    mpvue.getStorage({
+      key: "username",
+      success(res) {
+        store.commit("name", res.data);
+      }
+    });
   }
-  
-}
+};
 </script>
 
 <style>
-  body{
-    background-color:#f5f5f5
-  }
+body {
+  background-color: #f5f5f5;
+}
 .container {
   height: 100%;
   display: flex;

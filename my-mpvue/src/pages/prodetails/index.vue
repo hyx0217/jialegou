@@ -76,7 +76,8 @@ export default {
           price:this.product.G_price,
           img:this.product.G_img[0],
           ischeck:false,
-          num:this.total
+          num:this.total,
+          B_address:'',
         }
       }).then(res=>{
         console.log(res)

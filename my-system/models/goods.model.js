@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     G_price:String,
     G_sell:Number,
     G_type:String,
-    G_num:Number,
+    G_num:Number
 });
 schema.plugin(mongoosePaginate);
 const Goods = mongoose.model('goods',schema);

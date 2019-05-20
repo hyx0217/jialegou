@@ -55,7 +55,7 @@
     methods: {
       pushGoods() {
         this.$fly.post(`${this.baseUrl}/goods`, this.form_goods).then(res => {
-          console.log(res)
+  
         })
       },
       chooseImg() {

@@ -28,7 +28,8 @@
         cartProduct: "",
         checked: false,
         check: [],
-        total: ''
+        total: '',
+        B_address:''
       };
     },
     methods: {
@@ -42,6 +43,7 @@
       getDetail() {
         this.$fly.get(`${this.baseUrl}/user/${store.state.userId}`).then(res => {
           this.cartProduct = res.data.U_cates;
+          this.B_address=res.data.U_address[0]
         });
       },
       //提交订单
@@ -54,7 +56,7 @@
                 U_id: store.state.userId,
                 S_id: element.G_parentId,
                 G_id:element.id,
-                name: element.name,
+                B_address:this.B_address,
                 price: element.price,
                 num: element.num,
                 img: element.img,

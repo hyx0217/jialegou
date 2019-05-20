@@ -17,7 +17,7 @@
           </li>
         </ul>
       </div>
-      <van-button type="danger" size="large" @click="add()" style='position:fixed;bottom:0;width:100%'>添加收货地址
+      <van-button type="danger" size="large" @click="addOpen()" style='position:fixed;bottom:0;width:100%'>添加收货地址
       </van-button>
     </div>
     <div v-show='hide2'>
@@ -157,8 +157,7 @@
         }
       },
       //添加收货地址
-      add() {
-        
+      addOpen() {
         this.list = { //打开后重置
           name: '',
           address: '',
