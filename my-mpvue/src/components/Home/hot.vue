@@ -3,49 +3,49 @@
     <div class="hot-top">
       <ul>
         <li>
-          <a>
+          <a href="/pages/list/main?G_type=电脑">
             <img src="/static/images/computer.png">
             <span>电脑</span>
           </a>
         </li>
         <li>
-          <a>
-            <img src="/static/images/mobile.png">
-            <span>手机</span>
+          <a href="/pages/list/main?G_type=智能手机">
+            <img src="/static/images/智能手机.png">
+            <span>智能手机</span>
           </a>
         </li>
         <li>
-          <a>
+          <a href="/pages/list/main?G_type=T桖">
             <img src="/static/images/cloth.png">
-            <span>上衣</span>
+            <span>T桖</span>
           </a>
         </li>
         <li>
-          <a>
-            <img src="/static/images/pair.png">
-            <span>裤子</span>
+          <a href="/pages/list/main?G_type=牛仔裤">
+            <img src="/static/images/牛仔裤.png">
+            <span>牛仔裤</span>
           </a>
         </li>
         <li>
-          <a>
-            <img src="/static/images/food.png">
-            <span>零食</span>
+          <a href="/pages/list/main?G_type=裙子">
+            <img src="/static/images/裙子.png">
+            <span>裙子</span>
           </a>
         </li>
         <li>
-          <a>
-            <img src="/static/images/shoe.png">
-            <span>运动鞋</span>
+          <a href="/pages/list/main?G_type=球鞋">
+            <img src="/static/images/球鞋.png">
+            <span>球鞋</span>
           </a>
         </li>
         <li>
-          <a>
-            <img src="/static/images/school.png">
-            <span>校园专区</span>
+          <a href="/pages/list/main?G_type=相机">
+            <img src="/static/images/相机.png">
+            <span>相机</span>
           </a>
         </li>
         <li>
-          <a href="/pages/classify/main">
+          <a @click='toClassify'>
             <img src="/static/images/fenlei.png">
             <span>全部分类</span>
           </a>
@@ -94,6 +94,11 @@ export default {
         }
     },
     methods: {
+      toClassify(){
+        mpvue.switchTab({
+          url:'/pages/classify/main'
+        })
+      },
       getHot(){
           const baseUrl=process.env.API_ROOT
           var url=`${baseUrl}/goods/list`

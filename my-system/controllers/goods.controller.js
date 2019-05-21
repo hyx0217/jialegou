@@ -28,7 +28,8 @@ module.exports = {
   list: function (req, res, next) {
     var page = req.body.page ? req.body.page : 1;
     var rows = req.body.rows ? req.body.rows : 3;
-    Good.paginate({}, { sort: ({ _id: -1 }), page: +page, limit: +rows }, function (err, result) {
+    var obj=req.body.G_type?{G_type:req.body.G_type}:{}
+    Good.paginate(obj, { sort: ({ _id: -1 }), page: +page, limit: +rows }, function (err, result) {
       result.rows = result.docs
       delete result.docs
       res.json(result.rows)

@@ -1,9 +1,12 @@
 <template>
   <div>
     <sea></sea>
-    <div class="hot-mid">
+    <div v-if='list.length==0'>
+      <p>对不起，没有该类商品，请重新搜索</p>
+    </div>
+    <div v-else class="hot-mid">
       <scroll-view scroll-y="true">
-        <view v-for="(item, index) in hotProduct" :key="index" class="item-y">
+        <view v-for="(item, index) in list" :key="index" class="item-y">
           <a>
             <van-card
               :thumb-link="'/pages/prodetails/main?id='+item._id"
@@ -25,7 +28,10 @@ import sea from "@/components/Common/sea";
 import store from "../../store";
 export default {
   data() {
-    return {};
+    return {
+      page:1,
+      list:[],
+    };
   },
 
   components: {
@@ -33,26 +39,33 @@ export default {
   },
 
   methods: {
-    getHot() {
+    getList() {
       var url = `${this.baseUrl}/goods/list`;
       this.$fly
         .post(url, {
+          G_type:this.$root.$mp.query.G_type,
           page: this.page,
-          rows: 5
+          rows: 10
         })
         .then(res => {
-          console.log(res);
+          console.log(res)
           this.page = this.page + 1;
           for (var i = 0; i < res.data.length; i++) {
-            this.hotProduct.push(res.data[i]);
+            this.list.push(res.data[i]);
           }
         });
     }
   },
+  onShow(){
+  
+    this.page=1;
+    this.list=[]
+    this.getList()
+  },
 
-  created() {
-    // let app = getApp()
-  }
+  onReachBottom() {
+        this.getList();
+    },
 };
 </script>
 
