@@ -45,7 +45,7 @@
         <van-picker
           show-toolbar
           :columns="columns "
-           @change="onChange"
+          @change="onChange"
           @cancel="show=false"
           @confirm="onChangeType($event)"
         />
@@ -61,17 +61,16 @@
 <script>
 import Toast from "../../static/vant/dist/toast/toast";
 import store from "../store";
- const clssifys={
-        '上衣': ["T桖", "衬衫", "羽绒服", "长袖", "卫衣", "Pole衫"],
-        '下装':['牛仔裤','休闲裤','短裤','裙子'],
-        '鞋子':['运动鞋','球鞋','休闲鞋','拖鞋','高跟鞋'],
-        '电脑办公':['台式电脑','笔记本','键盘','耳机','鼠标','音响'],
-        '休闲零食':['牛奶','巧克力','方便面','辣条'],
-        '美妆护肤':['口红','面膜'],
-        '手机数码':['老人机','智能手机','相机']
-      }
+const clssifys = {
+  上衣: ["T桖", "衬衫", "羽绒服", "长袖", "卫衣", "Pole衫"],
+  下装: ["牛仔裤", "休闲裤", "短裤", "裙子"],
+  鞋子: ["运动鞋", "球鞋", "休闲鞋", "拖鞋", "高跟鞋"],
+  电脑办公: ["台式电脑", "笔记本", "键盘", "耳机", "鼠标", "音响"],
+  休闲零食: ["牛奶", "巧克力", "方便面", "辣条"],
+  美妆护肤: ["口红", "面膜"],
+  手机数码: ["老人机", "智能手机", "相机"]
+};
 export default {
- 
   data() {
     return {
       form_goods: {
@@ -84,15 +83,15 @@ export default {
         G_sell: 0
       },
       img_total: [],
-      columns:[
+      columns: [
         {
-        values: Object.keys(clssifys),
-        className: 'column1'
-      },
-      {
-        values: clssifys['上衣'],
-        className: 'column2'
-      },
+          values: Object.keys(clssifys),
+          className: "column1"
+        },
+        {
+          values: clssifys["上衣"],
+          className: "column2"
+        }
       ],
       show: false
     };
@@ -111,9 +110,19 @@ export default {
           if (that.img_total.length < 9) {
             that.img_total = that.img_total.concat(res.tempFilePaths);
             that.form_goods.G_img = that.img_total;
+    
           } else {
             Toast.fail("最多只能上传9张图片");
           }
+          wx.uploadFile({
+          url:`${that.baseUrl}/api/upload` ,
+          filePath: res.tempFilePaths[0],
+          name: 'qimg',
+           success(res) {
+             console.log(res)
+        // do something
+      }
+        })
         }
       });
     },
@@ -130,15 +139,14 @@ export default {
       this.form_goods.G_num = ev.mp.detail;
     },
     onChangeType(ev) {
-    
       this.form_goods.G_type = ev.mp.detail.value[1];
       this.show = false;
     },
     onChange(event) {
-    const { picker, value, index } = event.mp.detail;
-  
-    picker.setColumnValues(1, clssifys[value[0]]);
-  }
+      const { picker, value, index } = event.mp.detail;
+
+      picker.setColumnValues(1, clssifys[value[0]]);
+    }
   }
 };
 </script>

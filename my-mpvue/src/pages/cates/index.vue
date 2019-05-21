@@ -124,16 +124,17 @@
       }
     },
     onShow() {
+      this.checked=false;
       this.getDetail();
     },
-    watch: {
+    watch: { 
       //监听计算总价
       cartProduct: {
         handler: function (val, oldval) {
           this.total = 0;
           for (var value in val) {
             if (val[value].ischeck == true) {
-              this.total += val[value].num * val[value].price * 100
+              this.total += val[value].num * val[value].price
             }
           }
         },

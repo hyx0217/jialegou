@@ -7,6 +7,16 @@
     <van-cell-group>
       <van-cell title="运费￥0.00-20.00" :value="'销量:'+product.G_sell"/>
     </van-cell-group>
+    <van-cell-group>
+      <van-cell title="宝贝评价" value="内容"/>
+      <ul>
+        <li v-for="(item,index) in comments" :key="index">
+          <van-cell-group>
+            <van-cell :title="item.U_name" :label="item.C_comment" :border="false"/>
+          </van-cell-group>
+        </li>
+      </ul>
+    </van-cell-group>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服"/>
       <van-goods-action-icon icon="cart-o" @click='goCates' text="购物车"/>
@@ -52,9 +62,16 @@ export default {
       product: '',
       show: false,
       total:1,
+      comments:[]
     };
   },
   methods: {
+    getComments() {
+      this.$fly.get(`${this.baseUrl}/comments/list/${this.id}`).then(res => {
+        console.log(res)
+        this.comments = res.data.result;
+      });
+    },
     goCates(){
       mpvue.switchTab({
         url:'/pages/cates/main'
@@ -80,7 +97,6 @@ export default {
           B_address:'',
         }
       }).then(res=>{
-        console.log(res)
       })
     },
     //弹出底部组件
@@ -93,13 +109,15 @@ export default {
       this.show = false;
     },
     onChangeTotal(ev){
-      console.log(ev)
       this.total=ev.mp.detail
     }
   },
   mounted() {
     this.id = this.$root.$mp.query.id;
     this.getDetail();
+    this.getComments();
+        console.log(this.id)
+
   }
 };
 </script>

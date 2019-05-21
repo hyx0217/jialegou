@@ -35,9 +35,6 @@
             :title="item.name"
             :thumb="item.img "
           >
-            <view slot="footer">
-              <van-stepper :value="item.num" @change="onChangeNum($event,index)"/>
-            </view>
           </van-card>
         </a>
       </view>
@@ -84,7 +81,7 @@ export default {
     },
     onChange(ev) {
       this.radio = ev.mp.detail;
-      this.temp=this.address[ev.mp.detail]
+      this.temp=this.address[ev.mp.detail]//先把地址临时存个变量，确认提交后再上传
     },
     pushOrder() {
       this.product.forEach(ele => {

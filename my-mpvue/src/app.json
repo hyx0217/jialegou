@@ -53,7 +53,9 @@
   ],
     "position": "bottom"
   },
-  
+  "navigateToMiniProgramAppIdList":[
+    "wx8acbded62e655630"
+  ],
   "usingComponents": {
     "van-button": "static/vant/dist/button/index",
     "van-search": "static/vant/dist/search/index",

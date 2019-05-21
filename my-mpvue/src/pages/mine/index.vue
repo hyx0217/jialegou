@@ -41,7 +41,7 @@
     <van-cell title="收货地址" is-link url="/pages/address/main" />
     <van-cell title="我的钱包" is-link />
     <van-cell title="我的消息" is-link />
-    <van-cell title="我要开店" is-link />
+    <van-cell title="我要开店" is-link @click="goSeller()"/>
   </div>
 </template>
 <script>
@@ -56,6 +56,16 @@
       }
     },
     methods: {
+      goSeller(){
+        wx.navigateToMiniProgram({
+          appId: 'wx8acbded62e655630',
+          envVersion: 'develop',
+          success(res) {
+            console.log(res)
+            // 打开成功
+          }
+        })
+      },
       getUserInfo() {
         let that = this;
         wx.getUserInfo({

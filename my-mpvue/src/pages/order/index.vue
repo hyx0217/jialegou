@@ -93,7 +93,7 @@ export default {
     //评论
     goComment(id,G_id) {
       this.show = true;
-      this.G_id =id;//商品id
+      this.G_id =G_id;//商品id
       this.O_id=id//订单id
     },
     onChangCm(ev) {
