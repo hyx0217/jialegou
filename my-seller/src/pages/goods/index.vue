@@ -48,6 +48,7 @@
 
 <script>
 import newgoods from "@/components/newGoods.vue";
+import Notify from "../../../static/vant/dist/notify/notify";
 import store from "../../store.js";
 
 export default {

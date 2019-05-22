@@ -23,7 +23,8 @@ const uploadImg = multer({ storage: storageImg });
 router.post("/singleImg", uploadImg.single("img"), function(req, res) {
   let filename = req.file.filename;
   let host = "http://localhost:3000";
-  res.json(host + "/uploadFile/images/" + filename);
+  let url=host + "/uploadFile/images/" + filename;
+  res.send(url);
 });
 
 module.exports = router;

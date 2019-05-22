@@ -10,6 +10,7 @@ router.get('/listByNone/:parentId',dataCtrl.listByNone) ;
 
 router.put('/:id',dataCtrl.update)
 router.delete('/:id',dataCtrl.delete)
+router.post('/search',dataCtrl.search)
 
 
 module.exports = router;

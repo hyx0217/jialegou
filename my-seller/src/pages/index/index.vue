@@ -101,6 +101,7 @@
       //根据条件决定显示什么
       showOne(){
         //判断是否登录id
+        
       if (!store.state.userId) {
         this.show = 1;
       } else {
@@ -111,7 +112,6 @@
           if (res.data.status == 200) {
             this.show = 0;
             this.storeInfo = res.data.result;
-            console.log(2)
             store.commit('keepStore', res.data.result._id);
             //获取商品
             this.getGoods();
@@ -122,6 +122,15 @@
         })
       }
       }
+    },
+    created(){
+      let that=this;
+       wx.getStorage({
+                key: "_id",
+                success:function(){
+                  that.show=1
+                }
+              });
     },
     onShow() {
       this.showOne()

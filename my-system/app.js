@@ -12,6 +12,8 @@ var storeRouter = require('./routes/store');
 var commentsRouter = require('./routes/comments');
 var orderRouter = require('./routes/order');
 var uploadRouter = require('./routes/upload');
+var likesRouter = require('./routes/likes');
+
 
 const conn = mongoose.connection
 var app = express();
@@ -29,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploadFile',express.static(path.join(__dirname, 'uploadFile')));//设置成静态文件
+
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/goods', goodsRouter);
@@ -37,6 +41,8 @@ app.use('/store', storeRouter);
 app.use('/comments', commentsRouter);
 app.use('/order', orderRouter);
 app.use('/upload', uploadRouter);
+app.use('/likes', likesRouter);
+
 
 
 // catch 404 and forward to error handler

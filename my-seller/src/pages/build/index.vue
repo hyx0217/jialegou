@@ -40,12 +40,15 @@
       />
     </van-cell-group>
     <van-button type="primary" size="large" @click="register">开店</van-button>
-    <van-button type="defalut" size="large" @click="show=true">返回</van-button>
+    <van-button type="defalut" size="large" @click="toIndex">返回</van-button>
   </div>
+  
+
 </template>
 
 <script>
 import store from "../../store.js";
+import Notify from "../../../static/vant/dist/notify/notify";
 export default {
   data() {
     return {
@@ -63,7 +66,7 @@ export default {
     register() {
       this.$fly.post(`${this.baseUrl}/store/register`,this.form)
         .then(res => {
-          console.log(res)
+          this.toIndex()
         });
     },
     onRegisterNa(ev) {
@@ -74,7 +77,12 @@ export default {
     },
     onRegisterMo(ev) {
       this.form.S_money = ev.mp.detail;
-    }
+    },
+     toIndex() {
+        mpvue.switchTab({
+          url: "/pages/index/main"
+        });
+      },
   },
   mounted(){
     this.form.S_boss=store.state.userId

@@ -8,13 +8,12 @@ module.exports={
     });
   },
   list: function (req, res, next) {
-    var id=req.params.id
-    Order.find({U_id:id},null,{ sort: ({ _id: -1 })}, function (err, data) {
+    Order.find(req.body,null,{ sort: ({ _id: -1 })}, function (err, data) {
       res.json(data)
     });
   },
   listBy:function(req,res,next){
-    Order.find(req.body).then(data=>{
+    Order.find(req.body,null,{ sort: ({ _id: -1 })}).then(data=>{
       res.json(data)
     })
   },

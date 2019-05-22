@@ -68,10 +68,13 @@
       <van-button type="default" size="large" @click='delAddress()'>删除地址</van-button>
       <van-button type="default" size="large" @click='cancel()'>取消</van-button>
     </div>
+    <van-dialog id="van-dialog"/>
+
   </div>
 </template>
 <script>
   import store from '../../store'
+  import Dialog from "../../../static/vant/dist/dialog/dialog";
   export default {
     data() {
       return {
@@ -165,7 +168,6 @@
           road: ''
         };
         this.list.phone='';
-        console.log(this.list)
         this.hide = false;
         this.hide2 = true;
         this.hide3 = false;
@@ -219,15 +221,18 @@
       },
       //删除地址
       delAddress() {
+        Dialog.confirm({
+        message: "确定删除吗？"
+      }).then(res=>{
         this.arrList.splice(this.pos, 1);
         this.address();
         this.hide = true;
         this.hide2 = false;
         this.hide3 = false;
+      })
       }
     },
     onShow(){
-      console.log(1)
       this.getAddress()
     },
     mounted() {

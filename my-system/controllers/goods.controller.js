@@ -56,5 +56,15 @@ module.exports = {
         res.json({ 'msg': '查找失败', 'status': 400, 'result': {} })
       }
     })
+  },
+  search:function(req,res,next){
+    var name = req.body.name;
+    var page = req.body.page?req.body.page:1;
+    var rows = req.body.rows?req.body.rows:10;
+    Good.paginate({G_name:new RegExp(name,'g')},{page:+page,limit:+rows},function(err,result){
+      result.rows = result.docs;
+      delete result.docs;
+      res.json(result.rows);
+    })
   }
 }

@@ -4,7 +4,7 @@ const dataCtrl = require('../controllers/order.controller');
 router.post('/',dataCtrl.create) ;
 router.post('/listBy',dataCtrl.listBy) ;
 
-router.get('/:id',dataCtrl.list);
+router.post('/getorder',dataCtrl.list);
 router.put('/:id',dataCtrl.update);
 router.delete('/:id',dataCtrl.delorder)
 

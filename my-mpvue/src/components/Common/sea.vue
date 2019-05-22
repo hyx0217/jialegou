@@ -15,7 +15,25 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return{
+            list:[],
+            value:''
+        }
+    },
+    methods:{
+        //根据关键字查找商品
+        onSearch(ev){
+            mpvue.navigateTo({
+              url: `/pages/list/main?name=${ev.mp.detail}`
+            });
+           /*  this.value=ev.mp.detail;
+            this.$fly.get(`${this.baseUrl}/goods/search/${ev.mp.detail}`,).then(res=>{
+                this.list=res.data;
+                mpvue.nava
+            }) */
+        }
+    }
 }
 </script>
 <style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <sea></sea>
-    <div v-if='list.length==0'>
+    <div v-if="list.length==0">
       <p>对不起，没有该类商品，请重新搜索</p>
     </div>
     <div v-else class="hot-mid">
@@ -29,8 +29,8 @@ import store from "../../store";
 export default {
   data() {
     return {
-      page:1,
-      list:[],
+      page: 1,
+      list: []
     };
   },
 
@@ -43,12 +43,25 @@ export default {
       var url = `${this.baseUrl}/goods/list`;
       this.$fly
         .post(url, {
-          G_type:this.$root.$mp.query.G_type,
+          G_type: this.$root.$mp.query.G_type,
           page: this.page,
           rows: 10
         })
         .then(res => {
-          console.log(res)
+          this.page = this.page + 1;
+          for (var i = 0; i < res.data.length; i++) {
+            this.list.push(res.data[i]);
+          }
+        });
+    },
+    searchList() {
+      this.$fly
+        .post(`${this.baseUrl}/goods/search/`, {
+          name: this.$root.$mp.query.name,
+          page: this.page,
+          rows: 10
+        })
+        .then(res => {
           this.page = this.page + 1;
           for (var i = 0; i < res.data.length; i++) {
             this.list.push(res.data[i]);
@@ -56,16 +69,23 @@ export default {
         });
     }
   },
-  onShow(){
-  
-    this.page=1;
-    this.list=[]
-    this.getList()
+  onShow() {
+    this.page = 1;
+    this.list = [];
+    if (this.$root.$mp.query.name) {
+      this.searchList();
+    } else {
+      this.getList();
+    }
   },
 
   onReachBottom() {
-        this.getList();
-    },
+    if (this.$root.$mp.query.name) {
+      this.searchList();
+    } else {
+      this.getList();
+    }
+  }
 };
 </script>
 

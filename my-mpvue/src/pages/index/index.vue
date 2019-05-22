@@ -14,13 +14,6 @@ import sea from '@/components/Common/sea'
 export default {
   data () {
     return {
-      motto: 'Hello miniprograme',
-      value:'',
-
-      userInfo: {
-        nickName: 'mpvue',
-        avatarUrl: 'http://mpvue.com/assets/logo.png'
-      }
     }
   },
 

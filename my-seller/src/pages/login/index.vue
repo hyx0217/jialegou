@@ -76,10 +76,12 @@
       <van-button type="primary" size="large" @click="register">注册</van-button>
       <van-button type="defalut" size="large" @click="show=true">返回</van-button>
     </div>
+    <van-notify id="custom-selector"/>
   </div>
 </template>
 <script>
 import store from "../../store.js";
+import Notify from "../../../static/vant/dist/notify/notify";
 var Fly = require("flyio/dist/npm/wx");
 var fly = new Fly();
 export default {
@@ -134,10 +136,15 @@ export default {
           U_type: 2 //默认卖家用户
         })
         .then(res => {
+          Notify({
+            text: "注册成功",
+            duration: 1000,
+            selector: "#custom-selector",
+            backgroundColor: "#1989fa"
+          });
           this.show = true;
         });
     },
-
     onChangePh(ev) {
       this.formLogin.U_phone = ev.mp.detail;
     },

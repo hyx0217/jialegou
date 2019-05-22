@@ -40,7 +40,7 @@
     </div>
     <van-cell title="收货地址" is-link url="/pages/address/main" />
     <van-cell title="我的钱包" is-link />
-    <van-cell title="我的消息" is-link />
+    <van-cell title="我的收藏" is-link url="/pages/likes/main"/>
     <van-cell title="我要开店" is-link @click="goSeller()"/>
   </div>
 </template>

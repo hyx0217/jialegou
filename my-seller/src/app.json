@@ -7,7 +7,9 @@
     "pages/build/main",
     "pages/goods/main",
     "pages/goodsdetail/main",
-    "pages/editdetail/main"
+    "pages/editdetail/main",
+    "pages/home/main"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,6 +41,9 @@
       "selectedIconPath": "static/tabs/mine-active.png"
     }]
   },
+  "navigateToMiniProgramAppIdList":[
+    "wxe40708a721b67cba"
+  ],
   "usingComponents": {
     "van-button": "static/vant/dist/button/index",
     "van-search": "static/vant/dist/search/index",
@@ -63,6 +68,7 @@
     "van-checkbox-group": "static/vant/dist/checkbox-group/index",
     "van-dialog": "static/vant/dist/dialog/index",
     "van-toast": "static/vant/dist/toast/index",
-    "van-picker": "static/vant/dist/picker/index"
+    "van-picker": "static/vant/dist/picker/index",
+    "van-notify": "static/vant/dist/notify/index"
   }
 }

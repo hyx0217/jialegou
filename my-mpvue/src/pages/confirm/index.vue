@@ -15,9 +15,9 @@
         />
       </van-cell>
     </van-cell-group>
-    <van-dialog use-slot :show="show" show-cancel-button @cancel="show=false" @confirm='edit'>
+    <van-dialog use-slot :show="show" show-cancel-button @cancel="show=false" @confirm="edit">
       <van-radio-group :value="radio" @change="onChange($event)">
-        <van-radio v-for=" (item,index) in address" :key="index" :name="index" >
+        <van-radio v-for=" (item,index) in address" :key="index" :name="index">
           <p>收货人:{{item.name}}</p>
           <p>联系方式:{{item.phone}}</p>
           <p class="radio">收货地址:{{item.address}}</p>
@@ -34,17 +34,19 @@
             :price="item.price"
             :title="item.name"
             :thumb="item.img "
-          >
-          </van-card>
+          ></van-card>
         </a>
       </view>
     </scroll-view>
     <van-submit-bar :price="total " button-text="确认订单" @submit="pushOrder"></van-submit-bar>
+    <van-toast id="van-toast"/>
   </div>
 </template>
 
 <script>
 import store from "../../store";
+import Toast from "../../../static/vant/dist/toast/toast";
+
 export default {
   data() {
     return {
@@ -54,14 +56,14 @@ export default {
       address: [],
       radio: "0",
       B_address: "",
-      temp:"",
+      temp: ""
     };
   },
   methods: {
     //关闭弹框时修改
-    edit(){
-      this.show=false;
-      this.B_address=this.temp
+    edit() {
+      this.show = false;
+      this.B_address = this.temp;
     },
     getAddress() {
       this.$fly.get(`${this.baseUrl}/user/${store.state.userId}`).then(res => {
@@ -73,7 +75,7 @@ export default {
       this.$fly
         .post(`${this.baseUrl}/order/listBy`, {
           U_id: store.state.userId,
-          pay: false,
+          pay: false
         })
         .then(res => {
           this.product = res.data;
@@ -81,7 +83,7 @@ export default {
     },
     onChange(ev) {
       this.radio = ev.mp.detail;
-      this.temp=this.address[ev.mp.detail]//先把地址临时存个变量，确认提交后再上传
+      this.temp = this.address[ev.mp.detail]; //先把地址临时存个变量，确认提交后再上传
     },
     pushOrder() {
       this.product.forEach(ele => {
@@ -89,17 +91,37 @@ export default {
           .put(`${this.baseUrl}/order/${ele._id}`, {
             pay: true,
             //收货地址
-            B_address:this.B_address
+            B_address: this.B_address
           })
           .then(res => {
-            console.log(res);
+            Toast.loading({
+              mask: true,
+              message: "提交订单中..."
+            });
+            setTimeout(function() {
+              wx.navigateBack({
+                delta: 1
+              });
+            }, 1000);
+            //关闭页面返回上一页
           });
       });
     }
   },
   mounted() {
     this.getAddress();
-    this.getOrder();
+    if (this.$root.$mp.query.id) {
+      this.$fly
+        .post(`${this.baseUrl}/order/listBy`, {
+          _id: this.$root.$mp.query.id
+        })
+        .then(res => {
+          this.product = res.data;
+        });
+    } else {
+      console.log(2);
+      this.getOrder();
+    }
   }
 };
 </script>
@@ -134,7 +156,7 @@ page {
   font-size: 30rpx;
   line-height: 30rpx;
 }
-.radio{
+.radio {
   margin-bottom: 20rpx;
 }
 .cartCard {

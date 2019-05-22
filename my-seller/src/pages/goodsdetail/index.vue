@@ -8,7 +8,7 @@
     >
       <block v-for="(item, index) in goods.G_img" :key="index">
         <swiper-item>
-          <img style="width:100%" :src="item" class="slide-image">
+          <img style="width:100%;height:100%" :src="item" class="slide-image">
         </swiper-item>
       </block>
     </swiper>
@@ -33,12 +33,13 @@
       <van-button type="danger" size="large" @click="delGoods">删除</van-button>
     </div>
     <van-toast id="van-toast"/>
+    <van-dialog id="van-dialog"/>
   </div>
 </template>
 
 <script>
 import Toast from "../../../static/vant/dist/toast/toast";
-
+import Dialog from "../../../static/vant/dist/dialog/dialog";
 export default {
   data() {
     return {
@@ -71,15 +72,19 @@ export default {
     delGoods() {
       this.$fly.delete(`${this.baseUrl}/goods/${this.id}`).then(res => {
         //删除成功跳转
-        Toast.loading({
-          mask: true,
-          message: "删除中..."
-        });
-        setTimeout(function() {
-          mpvue.switchTab({
-            url: "/pages/index/main"
+        Dialog.confirm({
+          message: "确定删除吗？"
+        }).then(res => {
+          Toast.loading({
+            mask: true,
+            message: "删除中..."
           });
-        }, 2000);
+          setTimeout(function() {
+            mpvue.switchTab({
+              url: "/pages/index/main"
+            });
+          }, 1000);
+        });
       });
     }
   },

@@ -3,9 +3,9 @@
     <div class="hot-top">
       <ul>
         <li>
-          <a href="/pages/list/main?G_type=电脑">
-            <img src="/static/images/computer.png">
-            <span>电脑</span>
+          <a href="/pages/list/main?G_type=笔记本">
+            <img src="/static/images/笔记本.png">
+            <span>笔记本</span>
           </a>
         </li>
         <li>
@@ -58,7 +58,7 @@
       </h3>
       <scroll-view scroll-x="true" class="hot-x">
         <view v-for="(item, index) in hotProduct" :key="index" class="hot-item">
-          <img :src="item.G_img" style="width: 200rpx; height:200rpx">
+          <image :src="item.G_img" style="width: 200rpx; height:200rpx"></image>
           <p>{{item.G_name}}</p>
         </view>
       </scroll-view>
@@ -108,7 +108,6 @@ export default {
               rows:5
           }
           ).then(res=>{
-              console.log(res)
             this.page=this.page+1;
             for(var i=0;i<res.data.length;i++){
                 this.hotProduct.push(res.data[i])

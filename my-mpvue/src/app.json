@@ -8,9 +8,8 @@
     "pages/address/main",
     "pages/order/main",
     "pages/confirm/main",
-    "pages/list/main"
-
-
+    "pages/list/main",
+    "pages/likes/main"
 
 
   ],
@@ -80,7 +79,11 @@
     "van-checkbox-group": "static/vant/dist/checkbox-group/index",
     "van-radio": "static/vant/dist/radio/index",
   "van-radio-group": "static/vant/dist/radio-group/index",
-  "van-dialog": "static/vant/dist/dialog/index"
+  "van-dialog": "static/vant/dist/dialog/index",
+  "van-toast": "static/vant/dist/toast/index",
+  "van-notify": "static/vant/dist/notify/index",
+  "van-swipe-cell": "static/vant/dist/swipe-cell/index"
+
   }
 
 }

@@ -1,20 +1,32 @@
 <template>
   <div>
-    <van-search :value=" value " placeholder="请输入搜索关键词"/>
     <van-tabs :active="active">
       <van-tab title="全部">
         <p v-for="(item,index) in allOrder" :key="index" style="margin-top:20rpx">
-          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img">
+          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img" :thumb-link="'/pages/prodetails/main?id='+item.G_id">
             <view slot="footer">
-              <van-button size="mini">取消订单</van-button>
-              <van-button size="mini">确认订单</van-button>
+              <div v-show="!item.pay">
+                 <van-button size="mini" @click="delOrder(item._id)">取消订单</van-button>
+                  <van-button size="mini" @click="cfmOrder(item._id)">确认订单</van-button>
+              </div>
+              <div v-show="(item.pay && !item.send) ">
+                <van-button size="mini">提醒发货</van-button>
+              </div>
+              <div v-show="(item.send && !item.receive)">
+                <van-button v-if="!item.receive" size="mini" @click="receive(item._id)">确认收货</van-button>
+                <p v-else>已收货</p>
+              </div>
+              <div v-show="item.receive">
+                    <van-button v-if="!item.comment" size="mini" @click="goComment(item._id,item.G_id)">评价</van-button>
+                    <p v-else>已评价</p>
+              </div>
             </view>
           </van-card>
         </p>
       </van-tab>
       <van-tab title="未付款">
         <p v-for="(item,index) in payOrder" :key="index" style="margin-top:20rpx">
-          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img">
+          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img" :thumb-link="'/pages/prodetails/main?id='+item.G_id">
             <view slot="footer">
               <van-button size="mini" @click="delOrder(item._id)">取消订单</van-button>
               <van-button size="mini" @click="cfmOrder(item._id)">确认订单</van-button>
@@ -24,12 +36,13 @@
       </van-tab>
       <van-tab title="待发货">
         <p v-for="(item,index) in waitSendOrder" :key="index" style="margin-top:20rpx">
-          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img"></van-card>
+          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img" :thumb-link="'/pages/prodetails/main?id='+item.G_id"></van-card>
+          <van-button size="mini">提醒发货</van-button>
         </p>
       </van-tab>
       <van-tab title="已发货">
         <p v-for="(item,index) in sendOrder" :key="index" style="margin-top:20rpx">
-          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img">
+          <van-card num="2" :price="item.price" desc="描述信息" :title="item.name" :thumb="item.img" :thumb-link="'/pages/prodetails/main?id='+item.G_id">
             <view slot="footer">
               <van-button v-if="!item.receive" size="mini" @click="receive(item._id)">确认收货</van-button>
               <p v-else>已收货</p>
@@ -85,16 +98,16 @@ export default {
       commentOrder: [],
       comment: "",
       G_id: "",
-      O_id:'',
+      O_id: "",
       temp: ""
     };
   },
   methods: {
     //评论
-    goComment(id,G_id) {
+    goComment(id, G_id) {
       this.show = true;
-      this.G_id =G_id;//商品id
-      this.O_id=id//订单id
+      this.G_id = G_id; //商品id
+      this.O_id = id; //订单id
     },
     onChangCm(ev) {
       this.temp = ev.mp.detail;
@@ -112,39 +125,42 @@ export default {
         })
         .then(res => {
           //评论完修改评论状态
-          this.$fly.put(`${this.baseUrl}/order/${this.O_id}`, { comment: true }).then(res=>{
-            this.getAll()
-          });
+          this.$fly
+            .put(`${this.baseUrl}/order/${this.O_id}`, { comment: true })
+            .then(res => {
+              this.getAll();
+            });
         });
     },
     //获取全部订单
     getAll() {
-      this.$fly.get(`${this.baseUrl}/order/${store.state.userId}`).then(res => {
-        this.allOrder = res.data;
-        this.payOrder = [];
-        this.waitSendOrder = [];
-        this.sendOrder = [];
-        this.commentOrder = [];
-        for (var value in res.data) {
-          if (!res.data[value].send && res.data[value].pay) {
-            this.waitSendOrder.push(res.data[value]); //未发货
-          } else if (res.data[value].send) {
-            this.sendOrder.push(res.data[value]); //已发货
+      this.$fly
+        .post(`${this.baseUrl}/order/getorder`, { U_id: store.state.userId })
+        .then(res => {
+          this.allOrder = res.data;
+          this.payOrder = [];
+          this.waitSendOrder = [];
+          this.sendOrder = [];
+          this.commentOrder = [];
+          for (var value in res.data) {
+            if (!res.data[value].send && res.data[value].pay) {
+              this.waitSendOrder.push(res.data[value]); //未发货
+            } else if (res.data[value].send) {
+              this.sendOrder.push(res.data[value]); //已发货
+            }
+            if (!res.data[value].pay) {
+              this.payOrder.push(res.data[value]); //未付款的
+            } else if (res.data[value].receive) {
+              this.commentOrder.push(res.data[value]); //已确认收货
+            }
           }
-          if (!res.data[value].pay) {
-            this.payOrder.push(res.data[value]); //未付款的
-          } else if (res.data[value].receive) {
-            this.commentOrder.push(res.data[value]); //已确认收货
-          }
-        }
-      });
+        });
     },
     //确认收货
     receive(id) {
       this.$fly
         .put(`${this.baseUrl}/order/${id}`, { receive: true })
         .then(res => {
-          console.log(res);
           this.getAll();
         });
     },
