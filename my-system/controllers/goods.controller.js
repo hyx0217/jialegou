@@ -9,6 +9,7 @@ module.exports = {
   },
   create: function (req, res, next) {
     const good = new Good(req.body)
+    console.log(req.body)
     good.save().then(data => {
       res.json(data);
     });
