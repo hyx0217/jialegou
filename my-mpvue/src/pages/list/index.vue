@@ -14,7 +14,7 @@
               :price="item.G_price"
               :desc="'销量:'+item.G_sell"
               :title="item.G_name"
-              :thumb="item.G_img "
+              :thumb="item.G_img[0] "
             />
           </a>
         </view>

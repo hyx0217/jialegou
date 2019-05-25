@@ -73,7 +73,10 @@
             //登陆成功，在数据库创建
             that.$fly.post(`${that.baseUrl}/user`, {
               U_name: res.userInfo.nickName,
-              U_img: res.userInfo.avatarUrl
+              U_img: res.userInfo.avatarUrl,
+              U_address:[],
+              U_cates:[],
+              
             }).then(res => {
               //将用户Id存入cookie并且存入仓库
               store.commit('login', res.data._id)

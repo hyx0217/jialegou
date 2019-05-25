@@ -11,7 +11,7 @@
             :price="item.price"
             desc="描述信息"
             :title="item.name"
-            :thumb="item.img "
+            :thumb="item.img"
           >
             <view slot="footer">
               <van-row>
@@ -67,12 +67,15 @@ export default {
           this.cartProduct
         )
         .then(res => {
+          console.log(res)
           this.cartProduct = res.data.U_cates;
         });
     },
     //获取购物车信息
     getDetail() {
       this.$fly.get(`${this.baseUrl}/user/${store.state.userId}`).then(res => {
+        console.log(res)
+
         this.cartProduct = res.data.U_cates;
         this.B_address = res.data.U_address[0];
       });
@@ -168,7 +171,7 @@ export default {
         this.total = 0;
         for (var value in val) {
           if (val[value].ischeck == true) {
-            this.total += val[value].num * val[value].price;
+            this.total += val[value].num * val[value].price*100;
           }
         }
       },

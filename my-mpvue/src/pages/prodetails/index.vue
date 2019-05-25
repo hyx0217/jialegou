@@ -1,6 +1,17 @@
 <template>
   <div id="goods">
-    <img :src="product.G_img">
+      <swiper
+      :indicator-dots="indicatorDots"
+      :autoplay="autoplay"
+      :interval="interval"
+      :duration="duration"
+    >
+      <block v-for="(item, index) in product.G_img" :key="index">
+        <swiper-item>
+          <img style="width:100%;height:100%" :src="item" class="slide-image">
+        </swiper-item>
+      </block>
+    </swiper>
     <van-cell-group>
       <van-cell :title="product.G_name" :value="'￥'+product.G_price"/>
     </van-cell-group>
@@ -28,7 +39,8 @@
         <van-row>
           <van-col span="4" offset="2">
             <div style="border: 1px solid #c3c3c3;width:100rpx;height:100rpx;">
-              <img :src="product.G_img" style="width:100%;height:100%">
+              <span></span>
+              <img :src="img" style="width:100%;height:100%">
             </div>
           </van-col>
           <van-col span="16" offset="1">
@@ -55,7 +67,8 @@
         <van-row>
           <van-col span="4" offset="2">
             <div style="border: 1px solid #c3c3c3;width:100rpx;height:100rpx;">
-              <img :src="product.G_img" style="width:100%;height:100%">
+        
+              <img :src="img" style="width:100%;height:100%">
             </div>
           </van-col>
           <van-col span="16" offset="1">
@@ -88,12 +101,17 @@ export default {
   data() {
     return {
       id: "",
-      product: '',
+      product: {},
       show: false,
       showBuy:false,
       total:1,
       totalBuy:1,
-      comments:[]
+      comments:[],
+       indicatorDots: false,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      img:'',
     };
   },
   methods: {
@@ -151,6 +169,7 @@ export default {
     getDetail() {
       var url = `${this.baseUrl}/goods/${this.id}`;
       this.$fly.get(url).then(res => {
+        this.img=res.data.G_img[0];
         this.product = res.data;
       });
     },

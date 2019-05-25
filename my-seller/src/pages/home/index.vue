@@ -3,17 +3,13 @@
     <div class="top">
       <h3>今日业绩</h3>
       <van-row>
-        <van-col span="8">
+        <van-col span="12">
           <p>支付订单数</p>
-          <p>{{storeInfo.S_order}}</p>
+          <p>{{order.length}}</p>
         </van-col>
-        <van-col span="8">
+        <van-col span="12">
           <p>支付金额(元)</p>
-          <p>{{storeInfo.S_income}}</p>
-        </van-col>
-        <van-col span="8">
-          <p>店铺余额(元)</p>
-          <p>{{storeInfo.S_money}}</p>
+          <p>{{money}}</p>
         </van-col>
       </van-row>
     </div>
@@ -37,20 +33,41 @@
 </template>
 
 <script>
+  import store from '../../store'
 export default {
-  props: ["storeInfo"],
+
   data() {
       return{
-
+        storeInfo:{},
+        order:[],
+        money:0,
       }
   },
   methods: {
+    getOrder(){
+      this.$fly
+        .post(`${this.baseUrl}/order/getorder`, { S_id: store.state.storeId })
+        .then(res => {
+          console.log(res)
+          this.order = [];
+          this.money=0
+          for (var value in res.data) {
+            if (res.data[value].receive) {
+              this.order.push(res.data[value]); //已完成
+              this.money+=res.data[value].num*res.data[value].price
+            }
+          }
+        });
+    },
     toGoods() {
       mpvue.navigateTo({
         url: "/pages/goods/main"
       });
     }
-  }
+  },
+  mounted() {
+    this.getOrder()
+  },
 };
 </script>
 

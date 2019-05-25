@@ -14,7 +14,7 @@
         <van-search :value=" value " placeholder="请输入搜索关键词" />
         <van-tabs :active="active">
           <van-tab title="出售中">
-            <scroll-view scroll-y="true" style="height:1000rpx">
+            <scroll-view scroll-y="true" style="height:1100rpx">
               <view v-for="(item, index) in goods" :key="index">
                 <a>
                   <van-card :thumb-link="'/pages/goodsdetail/main?id='+item._id" centered="true" :price="item.G_price"
@@ -124,15 +124,20 @@
       }
     },
     created(){
+      this.getGoods();
+
       let that=this;
        wx.getStorage({
                 key: "_id",
-                success:function(){
-                  that.show=1
+                success:function(res){
+                  store.commit('login',res.data)
+                  that.show=0
+                  that.getGoods();
                 }
               });
     },
     onShow() {
+      this.getGoods();
       this.showOne()
       this.getGoods();
       this.getGoodsNone();

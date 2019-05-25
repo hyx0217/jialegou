@@ -77,7 +77,7 @@ export default {
       form_goods: {
         G_name: "",
         G_parentId: store.state.storeId,
-        G_img: "",
+        G_img: [],
         G_price: "",
         G_num: "",
         G_type: "",
@@ -101,6 +101,7 @@ export default {
   methods: {
     pushGoods() {
       this.form_goods.G_img=this.images;
+      console.log(this.images)
       this.$fly.post(`${this.baseUrl}/goods`, this.form_goods).then(res => {
           Toast.loading({
           mask: true,
@@ -143,6 +144,7 @@ export default {
     },
     onChangeNa(ev) {
       this.form_goods.G_name = ev.mp.detail;
+      console.log(ev)
     },
     onChangePr(ev) {
       this.form_goods.G_price = ev.mp.detail;

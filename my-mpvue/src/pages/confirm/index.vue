@@ -33,7 +33,7 @@
             centered="true"
             :price="item.price"
             :title="item.name"
-            :thumb="item.img "
+            :thumb="item.img"
           ></van-card>
         </a>
       </view>

@@ -8,7 +8,7 @@
         >
          <block v-for="(item, index) in imgUrls" :key="index" >
               <swiper-item>
-                <image :src="item" class="slide-image"/>
+                <image style="height:100%" :src="item" class="slide-image"/>
               </swiper-item>
             </block>
           </swiper>
@@ -20,9 +20,9 @@ export default {
     data(){
         return{
             imgUrls: [
-                'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/newsPicture/05558951-de60-49fb-b674-dd906c8897a6',
-                'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/coursePicture/0fbcfdf7-0040-4692-8f84-78bb21f3395d',
-                'http://mss.sankuai.com/v1/mss_51a7233366a4427fa6132a6ce72dbe54/management-school-picture/7683b32e-4e44-4b2f-9c03-c21f34320870'
+                'https://m.360buyimg.com/babel/jfs/t9949/132/2897033239/190435/6e97206f/5cdc2fefN01faac05.jpg!q60',
+                'https://img.alicdn.com/simba/img/TB1H9rvXRKw3KVjSZFOSuurDVXa.jpg',
+                'https://m.360buyimg.com/babel/jfs/t29740/100/1572792053/98357/b01cc632/5ce3b2b4N73b1bf34.jpg'
             ],
             indicatorDots: false,
             autoplay: true,

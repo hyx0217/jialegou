@@ -52,6 +52,7 @@ export default {
       this.$fly
         .post(`${this.baseUrl}/order/getorder`, { S_id: store.state.storeId })
         .then(res => {
+          console.log(res)
           this.allOrder = res.data;
           this.sendOrder = [];
           this.waitSendOrder = [];

@@ -15,9 +15,7 @@ export default {
     tree
   },
   data () {
-    return {
-      
-  }
+    return {}
   }
 }
 </script>

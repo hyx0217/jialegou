@@ -36,10 +36,19 @@ module.exports = {
       res.json(result.rows)
     });
   },
+   listBySell: function (req, res, next) {
+    var page = req.body.page ? req.body.page : 1;
+    var rows = req.body.rows ? req.body.rows : 3;
+    Good.paginate({}, { sort: ({ G_sell: -1 }), page: +page, limit: +rows }, function (err, result) {
+      result.rows = result.docs
+      delete result.docs
+      res.json(result.rows)
+    });
+  },
   //通过店铺Id获取
   listByStore: function (req, res, next) {
     const parentId = req.params.parentId
-    Good.find({ G_parentId: parentId,G_num : {$gt : 0} }).then(data => {
+    Good.find({ G_parentId: parentId,G_num : {$gt : 0} },null,{sort:({ _id: -1 })}).then(data => {
       if (data) {
         res.json({ 'msg': '查找成功', 'status': 200, 'result': data })
       } else {
@@ -49,7 +58,7 @@ module.exports = {
   },
   listByNone: function (req, res, next) {
     const parentId = req.params.parentId
-    Good.find({ G_parentId: parentId,G_num:0 }).then(data => {
+    Good.find({ G_parentId: parentId,G_num:0 },null,{sort: ({_id: -1 })}).then(data => {
       if (data) {
         res.json({ 'msg': '查找成功', 'status': 200, 'result': data })
       } else {

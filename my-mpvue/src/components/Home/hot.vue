@@ -58,8 +58,11 @@
       </h3>
       <scroll-view scroll-x="true" class="hot-x">
         <view v-for="(item, index) in hotProduct" :key="index" class="hot-item">
-          <image :src="item.G_img" style="width: 200rpx; height:200rpx"></image>
-          <p>{{item.G_name}}</p>
+          <a :href="'/pages/prodetails/main?id='+item._id">
+              <image :src="item.G_img[0]" style="width: 200rpx; height:200rpx"></image>
+              <p>{{item.G_name}}</p>
+          </a>
+         
         </view>
       </scroll-view>
     </div>
@@ -68,7 +71,7 @@
         <van-icon name="like" color="red" size="36rpx"/>猜你喜欢
       </h3>
       <scroll-view scroll-y="true">
-        <view v-for="(item, index) in hotProduct" :key="index" class="item-y">
+        <view v-for="(item, index) in likeProduct" :key="index" class="item-y">
           <a>
             <van-card
               :thumb-link="'/pages/prodetails/main?id='+item._id"
@@ -76,7 +79,7 @@
               :price="item.G_price"
               :desc="'销量:'+item.G_sell"
               :title="item.G_name"
-              :thumb="item.G_img "
+              :thumb="item.G_img[0] "
             />
           </a>
         </view>
@@ -88,6 +91,7 @@
 export default {
     data(){
         return{
+            likeProduct:[],
             hotProduct:[],
             page:1,
            
@@ -99,27 +103,41 @@ export default {
           url:'/pages/classify/main'
         })
       },
-      getHot(){
-          const baseUrl=process.env.API_ROOT
+      getLike(){
+        const baseUrl=process.env.API_ROOT
           var url=`${baseUrl}/goods/list`
           this.$fly.post(url,
           {
               page:this.page,
-              rows:5
+              rows:3
           }
           ).then(res=>{
             this.page=this.page+1;
+            console.log(res.data)
             for(var i=0;i<res.data.length;i++){
-                this.hotProduct.push(res.data[i])
+                this.likeProduct.push(res.data[i])
             }
+          })
+      },
+      getHot(){
+          const baseUrl=process.env.API_ROOT
+          var url=`${baseUrl}/goods/listBySell`
+          this.$fly.post(url,
+          {
+              page:1,
+              rows:8
+          }
+          ).then(res=>{
+            this.hotProduct=res.data
           })
       }
     },
     //到达底部刷新
     onReachBottom() {
-        this.getHot();
+        this.getLike()
     },
     created () {
+        this.getLike()
        this.getHot();
     }
 }

@@ -1,7 +1,6 @@
 <template>
   <div>
     <div v-if="show">
-      <van-search :value=" value " placeholder="请输入搜索关键词"/>
       <van-tabs :active="active">
         <van-tab title="出售中">
           <scroll-view scroll-y="true" style="height:1000rpx">
