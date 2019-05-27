@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const dataCtrl = require('../controllers/user.controller');
 /* GET users listing. */
+router.post('/findUser',dataCtrl.findUser)
 router.get('/:id',dataCtrl.get) ;
 router.post('/',dataCtrl.create) ;
 router.put('/address/:id',dataCtrl.address)

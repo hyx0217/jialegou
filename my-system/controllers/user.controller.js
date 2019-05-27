@@ -1,6 +1,28 @@
 const mongoose = require("mongoose");
 const User = require("../models/user.model");
+const request=require('request')
+var jwt = require('jsonwebtoken');
 module.exports = {
+  findUser:function(req,res,next){
+    let options={
+      method:'POST',
+      url:'https://api.weixin.qq.com/sns/jscode2session?',
+      formData:{
+        appId:'wxe40708a721b67cba',
+        secret:'37ff983fb5172cd7ece6f9b566249e3c',
+        js_code:req.body.code,
+        grant_type:'authorization_code',
+      }
+    };
+    //生成token
+    request(options,(error,response,body)=>{
+      let _data=JSON.parse(body);
+      var token = jwt.sign(_data, 'shhhhh'); //根据微信服务返回的session_key和openid生成token
+      res.json({
+        token:token
+      })
+    })
+  },
   get: function(req, res, next) {
     var id = req.params.id;
     User.findById(id).then(data => {

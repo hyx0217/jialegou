@@ -2,7 +2,7 @@
   <div id='mine'>
     <view class="mine-top">
       <view class="userinfo">
-        <button v-if="!hasUserInfo && canIUse" open-type="getUserInfo" @click="getUserInfo"> 登录 </button>
+        <button v-if="!hasUserInfo && canIUse" open-type="getUserInfo" @click="login"> 登录 </button>
         <block v-else>
           <image class="userinfo-avatar" :src="userImg" mode="cover"></image>
           <text class="userinfo-nickname">{{userName}}</text>
@@ -66,6 +66,16 @@
           }
         })
       },
+      login(){
+        let that=this
+        wx.login({
+          success(res){
+            that.$fly.post(`${that.baseUrl}/user/findUser`,{code:res.code}).then(res=>{
+              console.log(res)
+            })
+          }
+        })
+      },
       getUserInfo() {
         let that = this;
         wx.getUserInfo({
@@ -99,16 +109,17 @@
     },
     mounted() {
       //存在用户获取
-      const that=this
+     /*  const that=this
       if(store.state.userId){
         wx.getUserInfo({
           success:function(res){
+            console.log(res)
             that.userImg = res.userInfo.avatarUrl;
             that.userName = res.userInfo.nickName;
             that.hasUserInfo = true;
           }
         })
-      }
+      } */
     }
   }
 
