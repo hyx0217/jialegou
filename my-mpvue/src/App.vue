@@ -23,6 +23,20 @@ export default {
         store.commit("name", res.data);
       }
     });
+  },
+  getToken(){
+    var that=this;
+    return new Promise((reject,resolve=>{
+      wx.login({
+          success(res){
+            that.$fly.post(`${that.baseUrl}/user/findUser`,{code:res.code}).then(res=>{
+              console.log(res)
+            })
+          }
+        })
+    }))
+
+    
   }
 };
 </script>

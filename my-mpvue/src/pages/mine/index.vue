@@ -67,13 +67,19 @@
         })
       },
       login(){
-        let that=this
-        wx.login({
-          success(res){
-            that.$fly.post(`${that.baseUrl}/user/findUser`,{code:res.code}).then(res=>{
-              console.log(res)
+        var that=this;
+        return new Promise((reject,resolve)=>{
+          wx.login({
+              success(res){
+                that.$fly.post(`${that.baseUrl}/user/findUser`,{code:res.code}).then(res=>{
+                  wx.setStorage({
+                    key:'_token',
+                    data:res.data.token
+                  })
+                  resolve()
+                })
+              }
             })
-          }
         })
       },
       getUserInfo() {

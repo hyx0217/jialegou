@@ -17,7 +17,16 @@ module.exports = {
     //生成token
     request(options,(error,response,body)=>{
       let _data=JSON.parse(body);
-      var token = jwt.sign(_data, 'shhhhh'); //根据微信服务返回的session_key和openid生成token
+      let token = jwt.sign(_data, 'shhhhh'); //根据微信服务返回的session_key和openid生成token
+      let user=new User({
+        'openid':_data.openid,
+        'token':token
+      })
+      //保存用户唯一标识到数据库
+      user.save().then(data=>{
+        console.log(data)
+      })
+     
       res.json({
         token:token
       })
